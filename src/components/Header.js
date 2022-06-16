@@ -13,7 +13,6 @@ const useStyles = makeStyles((theme) => ({
 
 function Header() {
     const classes = useStyles();
-    console.log("Hello!");
     return (
         <React.Fragment>
             <CssBaseline />

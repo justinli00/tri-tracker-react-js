@@ -1,7 +1,7 @@
 import React from 'react';
 
-function PostLoading(Component) {
-    return function PostLoadingComponent({ isLoading, ...props }) {
+function CommentsLoading(Component) {
+    return function CommentsLoadingComponent({ isLoading, ...props }) {
         if(!isLoading)
             return <Component {...props} />;
         else
@@ -16,4 +16,4 @@ function PostLoading(Component) {
     };
 }
 
-export default PostLoading;
+export default CommentsLoading;
