@@ -1,17 +1,16 @@
 import React from 'react';
-import { makeStyles, styled } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
+import { useNavigate } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardActions from '@material-ui/core/CardActions';
 import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Collapse from '@material-ui/core/Collapse'
 
 const useStyles = makeStyles((theme) => ({
 	cardMedia: {
@@ -40,35 +39,22 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const CheckComments = styled((props) => {
-    const {expand, ...other } = props;
-    return <IconButton {...other} />;
-})(({theme, expand}) => ({
-    transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-        duration: theme.transitions.duration.shortest,
-    }),
-}));
+const PostList = (props) => {
 
-const Posts = (props) => {
-
-    const [expanded, setExpanded] = React.useState(false);
-    const handleExpandClick = () => {
-        setExpanded(!expanded);
-    }
+	const navigate = useNavigate();
 
 	const { posts } = props;
 	const classes = useStyles();
-	if (!posts || posts.length === 0) return <p>Cannot find any posts, sorry</p>;
+
+	if (!posts || posts.length === 0) 
+		return <p>Cannot find any posts, sorry</p>;
 	return (
 		<React.Fragment>
 			<Container maxWidth="md" component="main">
 				<Grid container spacing={5} alignItems="flex-end">
 					{posts.map((post) => {
 						return (
-							// Enterprise card is full width at sm breakpoint
-							<Grid item key={post.id} xs={12} md={4}>
+							<Grid item key={ post.id } xs={12} md={4}>
 								<Card className={classes.card}>
 									<CardHeader
                                         avatar = {
@@ -79,7 +65,7 @@ const Posts = (props) => {
                                     />
                                     <CardMedia
 										className={classes.cardMedia}
-										image={ post.image }
+										image={ "https://source.unsplash.com/random" }
 										title="Image title"
 									/>
 									<CardContent className={classes.cardContent}>
@@ -101,23 +87,15 @@ const Posts = (props) => {
 											</Typography>
 										</div>
 									</CardContent>
-                                    <CardActions disableSpacing> 
-                                        <CheckComments
-                                            expand = {expanded}
-                                            onClick = {handleExpandClick}
-                                            aria-expanded = {expanded}
-                                            aria-label = "show more"
-                                        >
-                                            <ExpandMoreIcon 
-                                                alignitems = "right"
-                                            />
-                                        </CheckComments>
-                                    </CardActions>
-                                    <Collapse>
-                                        <Typography paragraph>
-                                            Comments:
-                                        </Typography>
-                                    </Collapse>
+									<CardActions>
+										<Button
+											color="primary"
+											variant="outlined"
+											onClick={() => navigate('/post', {state:{ post:post}})}
+										>
+											Read More
+										</Button>
+									</CardActions>
 								</Card>
 							</Grid>
 						);
@@ -127,4 +105,4 @@ const Posts = (props) => {
 		</React.Fragment>
 	);
 };
-export default Posts;
+export default PostList;

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import Posts from './components/Posts';
+import PostList from './components/PostList';
 import PostLoadingComponent from './components/PostLoading';
-import apiCall from './urls'
+import axiosInstance from './axios';
 
 function App() {
-  const PostLoading = PostLoadingComponent(Posts);
+  const PostLoading = PostLoadingComponent(PostList);
   const [appState, setAppState] = useState({
     loading: false,
     posts: null,
@@ -13,14 +13,15 @@ function App() {
 
   useEffect(() => {
     setAppState({ loading: true });
-    fetch(apiCall(0), { 
-      method:"GET"
-    })
-      .then((resp) => resp.json())
+    axiosInstance.get('post')
       .then((posts) => {
-        setAppState({ loading: false, posts: posts})
+        setAppState({ loading: false, posts: posts.data})
       })
-      .catch(error => alert(error.message));
+      .catch((error) => {
+        if(!(localStorage.getItem('access_token') == null && error.response.status === 401)) //it's only ok in this case -- catch 401
+          console.log(error.message);
+          console.log(error);
+      });
   }, [setAppState]);
   return (
     <div className = "App">
