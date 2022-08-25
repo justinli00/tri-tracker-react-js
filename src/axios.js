@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 
-const baseURL = 'https://run-tracker.azurewebsites.net/api/';
+const baseURL = 'https://tri-tracker-backend.azurewebsites.net/api/';
 
 const axiosInstance = axios.create({
     baseURL: baseURL,

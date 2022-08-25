@@ -62,6 +62,7 @@ export default function Login() {
 			})
 			.then((res) => {
 				//save returned tokens
+				console.log("getting tokens");
 				localStorage.setItem('access_token', res.data.access);
 				localStorage.setItem('refresh_token', res.data.refresh);
 				
@@ -81,9 +82,11 @@ export default function Login() {
 		axiosInstance
 			.get(`user/info/${formData.email}`)
 			.then((res) => {
+				console.log("getting user info");
 				localStorage.setItem('user_name', res.data.user_name);
 				localStorage.setItem('user_id', res.data.user_id);
 			})
+			.then(() => { window.location.reload(true); } )	//refresh so that new ui is displayed
 			.catch((error) => {
 				console.log(error.message);
 				console.log(error);
