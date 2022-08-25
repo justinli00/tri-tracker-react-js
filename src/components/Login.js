@@ -72,8 +72,6 @@ export default function Login() {
 			})
 			.catch((error) => {
 				console.log(error.message);
-				console.log(error);
-				alert(error.message);
 			});
 
 			
@@ -86,8 +84,6 @@ export default function Login() {
 			})
 			.catch((error) => {
 				console.log(error.message);
-				console.log(error);
-				alert(error.message);
 			});
 	};
 
