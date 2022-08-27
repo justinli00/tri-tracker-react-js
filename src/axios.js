@@ -35,6 +35,8 @@ axiosInstance.interceptors.response.use(
 			return Promise.reject(error);
 		}
 
+		console.log("This is the updated version.");
+
         //prevent looping through errors
 		if (
 			error.response.status === 401 &&
