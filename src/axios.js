@@ -44,6 +44,18 @@ axiosInstance.interceptors.response.use(
 			return Promise.reject(error);
 		}
 
+		//if error response data is undefined
+		if(error.response.data == null)
+		{
+			console.log("An error with no response data has occurred.");
+			return Promise.reject(error);
+		}
+		if(error.response.data.code == null)
+		{
+			console.log("An undefined error has occurred.");
+			return Promise.reject(error);
+		}
+
         //if token expires
 		if (
 			error.response.data.code === 'token_not_valid' &&
